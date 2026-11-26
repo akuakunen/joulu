@@ -223,21 +223,27 @@ function startSlide(door, el) {
 
 function startCode(door, el) {
   const syms = ['☕', '🥐', '🎅', '⚙️'];
-  const secret =.map(() => syms[Math.floor(Math.random() * 4)]);
+  const slots = Array.from({ length: 4 }, (_, i) => i);
+  const secret = slots.map(() => syms.at(Math.floor(Math.random() * 4)));
   let attempts = [];
   function render() {
     el.innerHTML = `<h3>Luukku ${door.day}: ${door.title}</h3>
       <p class="subtitle">🟩 = oikea paikka, 🟨 = mukana koodissa</p>
-      <div style="margin:10px 0">${.map(i => `<select id="sel${i}">${syms.map(s => `<option value="${s}">${s}</option>`).join('')}</select>`).join(' ')}</div>
+      <div style="margin:10px 0">${slots.map(i => `<select id="sel${i}">${syms.map(s => `<option value="${s}">${s}</option>`).join('')}</select>`).join(' ')}</div>
       <button id="cTry">Kokeile</button>
       <div style="margin-top:10px;text-align:left;max-height:130px;overflow:auto">${attempts.map(a => `<div>${a.guess.join(' ')} — 🟩 ${a.exact} | 🟨 ${a.near}</div>`).join('')}</div>
       <button class="secondary" style="margin-top:10px" onclick="closeModal()">Sulje</button>`;
     document.getElementById('cTry').onclick = () => {
-      const guess =.map(i => document.getElementById('sel' + i).value);
+      const guess = slots.map(i => document.getElementById('sel' + i).value);
       let exact = 0, near = 0;
       const sC = [...secret], gC = [...guess];
-      for (let i = 0; i < 4; i++) if (gC[i] === sC[i]) { exact++; sC[i] = gC[i] = null; }
-      for (let i = 0; i < 4; i++) if (gC[i] && sC.includes(gC[i])) { near++; sC[sC.indexOf(gC[i])] = null; }
+      slots.forEach(i => {
+        if (gC.at(i) === sC.at(i)) { exact++; sC.splice(i, 1, null); gC.splice(i, 1, null); }
+      });
+      slots.forEach(i => {
+        const val = gC.at(i);
+        if (val && sC.includes(val)) { near++; sC.splice(sC.indexOf(val), 1, null); }
+      });
       attempts.push({ guess, exact, near });
       if (exact === 4) {
         const score = Math.max(25, 115 - attempts.length * 15);
