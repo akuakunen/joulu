@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sorvaamon & Neukkarin Joulukalenteri</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://jsdelivr.net"></script>
+</head>
+<body>
+
+<header>
+  <h1>🎄 Sorvaamon & Neukkarin Joulukalenteri</h1>
+  <p class="subtitle">Kun keittiö-neukkarin ovi on taas kiinni palaverin takia – paranna tulostasi milloin vain!</p>
+  <div class="player-bar">
+    <input type="text" id="playerName" placeholder="Nimesi / Sorvi (esim. Matti K.)" />
+    <button onclick="saveName()">Tallenna nimi</button>
+  </div>
+</header>
+
+<div class="layout">
+  <div class="calendar-grid" id="calendar"></div>
+  <div class="panel">
+    <h2>🏆 Kokonaispisteet (Top 15)</h2>
+    <table>
+      <thead><tr><th>#</th><th>Nimi</th><th>Luukut</th><th>Pisteet</th></tr></thead>
+      <tbody id="leaderboard"><tr><td colspan="4">Ladataan...</td></tr></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="modal-bg" id="modalBg"><div class="modal" id="modalContent"></div></div>
+
+<script src="app.js"></script>
+</body>
+</html>
