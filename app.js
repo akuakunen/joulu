@@ -1,5 +1,5 @@
-const SUPABASE_URL = 'VAIHDA_TÄHÄN_SUPABASE_URL';
-const SUPABASE_KEY = 'VAIHDA_TÄHÄN_SUPABASE_ANON_KEY';
+const SUPABASE_URL = 'https://jzpdfosjfzbganydjifk.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_leykK4y_6wRqCorD3VprqA_pawmVWhC';
 const TEST_MODE_UNLOCK_ALL = true;
 
 const sb = SUPABASE_URL.startsWith('http') ? supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
